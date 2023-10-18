@@ -63,6 +63,39 @@ public class HandleEvent implements ActionListener {
 
         if(e.getSource() == update){
             //EVENT_CODE_FOR_UPDATE_BUTTON
+            connect();//This connect()  method connects the database
+            String productID = id.getText();
+            String productName = name.getText();
+            String productPrice = price.getText();
+            String productQuantity = quantity.getText();
+
+
+            try{
+                statement = con.prepareStatement("UPDATE products SET productID=?, productName = ?,productPrice = ?,productQty = ? WHERE productID = ?");
+                int proID = Integer.parseInt(productID);
+                statement.setInt(1,proID);
+                statement.setString(2,productName);
+                int proPrice = Integer.parseInt(productPrice);
+                statement.setInt(3,proPrice);
+                int proQuantity = Integer.parseInt(productQuantity);
+                statement.setInt(4,proQuantity);
+                statement.setInt(5,proID);
+                statement.executeUpdate();
+
+                JOptionPane.showMessageDialog(null,"Successfully Updated","Record Updated",JOptionPane.INFORMATION_MESSAGE);
+
+                id.setText("");
+                name.setText("");
+                price.setText(" ");
+                quantity.setText(" ");
+
+                con.close();
+
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+
+
 
         }
 
