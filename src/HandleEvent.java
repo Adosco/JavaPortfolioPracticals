@@ -101,11 +101,62 @@ public class HandleEvent implements ActionListener {
 
         if(e.getSource() == delete){
             //EVENT_CODE_FOR_DELETE_BUTTON
+            connect();
+            String productID = id.getText();
+
+            try {
+                statement = con.prepareStatement("DELETE FROM products WHERE productID=?");
+                int proID = Integer.parseInt(productID);
+                statement.setInt(1,proID);
+                statement.executeUpdate();
+
+                JOptionPane.showMessageDialog(null,"Successfully Deleted","Record Deleted",JOptionPane.INFORMATION_MESSAGE);
+
+                id.setText(" ");
+                name.setText("");
+                price.setText("");
+                quantity.setText("");
+
+                con.close();
+
+            }catch (SQLException ex){
+                ex.printStackTrace();
+            }
+
 
         }
 
         if(e.getSource() == search){
             //EVENT_CODE_FOR_SEARCH_BUTTON
+            connect();
+            String productID = id.getText();
+            try {
+                statement = con.prepareStatement("SELECT productName,productPrice,productQty FROM products WHERE productID = ?");
+                int proID = Integer.parseInt(productID);
+                statement.setInt(1,proID);
+                ResultSet rs = statement.executeQuery();
+
+                if(rs.next() == true){
+                    String proName = rs.getString(1);
+                    String proPrice = rs.getString(2);
+                    String proQty = rs.getString(3);
+
+                    name.setText(proName);
+                    price.setText(proPrice);
+                    quantity.setText(proQty);
+
+                }else{
+                    name.setText(" ");
+                    price.setText(" ");
+                    quantity.setText("");
+                    JOptionPane.showMessageDialog(null,"Invalid Product ID","Error",JOptionPane.ERROR_MESSAGE);
+                }
+                con.close();
+
+            }catch (SQLException ex){
+                ex.printStackTrace();
+
+            }
 
         }
     }
