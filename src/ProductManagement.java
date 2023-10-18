@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProductManagement {
+
     public static void main(String[] args){
         JFrame frame = new JFrame("Product Management Application");
 
@@ -67,6 +68,14 @@ public class ProductManagement {
         copyright.setBounds(80,310,300,30);
         copyright.setFont(new Font("Serif",Font.ITALIC,16));
         copyright.setForeground(Color.BLUE);
+
+
+        //EventHandler
+        HandleEvent handleEvent = new HandleEvent(productIDField,productNameField,productPriceField,productQtyField,addButton,updateButton,deleteButton,searchButton);
+        addButton.addActionListener(handleEvent);
+        updateButton.addActionListener(handleEvent);
+        deleteButton.addActionListener(handleEvent);
+        searchButton.addActionListener(handleEvent);
 
 
 
