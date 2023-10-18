@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.sql.*;
 
 public class HandleEvent implements ActionListener {
+
+    //Declaration of variables( instance of JTextField, and JButton)
     JTextField id,name,price,quantity;
     JButton add,update,delete,search;
 
@@ -26,7 +28,7 @@ public class HandleEvent implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == add){
             //EVENT_CODE_FOR_ADD_BUTTON
-            connect();//Connects the database
+            connect();//This connect()  method connects the database
             String productID = id.getText();
             String productName = name.getText();
             String productPrice = price.getText();
